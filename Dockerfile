@@ -1,4 +1,4 @@
-FROM alpine:3.10 as builder
+FROM python:3.12 as builder
 
 ARG VERSION=7.14.0
 ARG DISTRO=tomcat
@@ -30,7 +30,7 @@ RUN /tmp/download.sh
 
 ##### FINAL IMAGE #####
 
-FROM alpine:3.10
+FROM python:alpine
 
 ARG VERSION=7.14.0
 
@@ -69,6 +69,12 @@ RUN apk add --no-cache \
     && curl -o /usr/local/bin/wait-for-it.sh \
       "https://raw.githubusercontent.com/vishnubob/wait-for-it/a454892f3c2ebbc22bd15e446415b8fcb7c1cfa4/wait-for-it.sh" \
     && chmod +x /usr/local/bin/wait-for-it.sh
+
+# Python
+
+
+RUN apk add --no-cache \
+        chromium chromium-chromedriver
 
 RUN addgroup -g 1000 -S camunda && \
     adduser -u 1000 -S camunda -G camunda -h /camunda -s /bin/bash -D camunda
