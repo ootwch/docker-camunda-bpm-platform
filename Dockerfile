@@ -1,4 +1,4 @@
-FROM python:3.12 as builder
+FROM alpine:3.10 as builder
 
 ARG VERSION=7.14.0
 ARG DISTRO=tomcat
